@@ -1,0 +1,63 @@
+
+<!--index.wxml-->
+<view class="swiper-tab">
+  <block wx:for="{{arrayCol}}" wx:key="id" wx:for-item="item" wx:for-index="idx">
+    <view class="swiper-tab-list {{currentTab == idx ? 'on' : ''}}" data-current="{{idx}}" bindtap="swichNav">
+      {{item.name}}
+    </view>
+  </block>
+  <dl class="menu">
+  <view>
+    <dt data-index="0" bindtap="tapMainMenu">...</dt></view>
+    <dd class="{{subMenuDisplay[0]}}">
+      <ul>
+        <ul>
+          <block wx:for="{{arrayCol}}" wx:key="id" wx:for-item="item" wx:for-index="idx">
+            <li class="{{subMenuHighLight[0][0]}}" data-index="0-0" bindtap="tapSubMenu">{{item.name}}</li>
+          </block>
+        </ul>
+      </ul>
+    </dd>
+  </dl>
+</view>
+
+<!--<swiper current="{{currentTab}}" class="swiper-box" style="height:{{winHeight - 31}}px" bindchange="bindChange">-->
+
+<!--<block wx:for="{{arrArt}}" wx:key="id" wx:for-item="item">-->
+
+<!--<view class="list">
+      <view class="title">
+        {{ item.title }}  转载:{{item.rep}}条
+      </view>
+      <view class="time">
+        {{item.time}}
+      </view>
+    </view>-->
+
+<!--<swiper-item>-->
+<view class="container">
+  <view class="news-item-container">
+    <navigator url="../details/details?id={{item.id}}" wx:for="{{arrArt}}" wx:for-index="id">
+      <view class="news-item">
+        <view class="news-item-left">
+          <text class="news-item-title">{{item.title}}</text>
+          <view style="margin-left: 1px">
+            <text class="news-item-time">{{item.time}}</text>
+            <text class="news-item-time" style="margin-left: 14px;">转载:{{item.rep}}条</text>
+          </view>
+          <text class="news-item-src">{{item.src}}</text>
+        </view>
+        <view class="news-item-right">
+          <image src="{{item.img}}" class="news-image" />
+        </view>
+      </view>
+    </navigator>
+  </view>
+</view>
+
+<!--</swiper-item>
+  </block>-->
+
+<!--</swiper>-->
+
+<!--    wangxiao@estarinfo.net  800915     -->
