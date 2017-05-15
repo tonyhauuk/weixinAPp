@@ -1,6 +1,6 @@
 // load xml 类
 var parser = require('../../utils/parser.js');
-const WxParse = require('../../utils/wxParse/wxParse.js');
+var WxParse = require('../../utils/wxParse/wxParse/wxParse.js');
 
 Page({
   data: {
@@ -59,14 +59,16 @@ Page({
 
                   /*text = text.replace(/<img/g, "<image")
                   text = text.replace(/\/>/g, '></image>')*/
-
-                  //WxParse.wxParse('html', text, this)
-
+                  // text = '<div>' + text + '</div>'
+                                
                   if (title.length > 40) 
                     title = title.substring(0, 40) + '...'
                 }
               }
             }
+
+            WxParse.wxParse('content', 'html', text, that, 5)
+
             that.setData({
               id: id,
               title: title,

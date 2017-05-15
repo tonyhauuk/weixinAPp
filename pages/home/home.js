@@ -150,7 +150,7 @@ Page({
 
   bindChange: function (e) {
     var that = this
-    let id = e.detail.current
+    var id = e.detail.current
     if (id == '' || id == null)
       id = 0
 
@@ -163,7 +163,7 @@ Page({
 
   swichNav: function (e) {
     var that = this
-    let id = e.target.dataset.current
+    var id = e.target.dataset.current
     if (id == '' || id == null)
       id = 0
 

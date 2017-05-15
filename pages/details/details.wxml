@@ -1,23 +1,13 @@
-<import src="../../utils/wxParse/wxParse.wxml"/>
-<!--detail.wxml
-<view class="container">
-  <view>
-    <view class="title">{{title}}</view>
-    <view class="time">{{time}} 转载:{{rep}}条</view>
-  </view>
-  <view class="text" >{{text}}</view>
-</view>-->
+<import src="../../utils/wxParse/wxParse/wxParse.wxml" />
+
 <view class="page__detail">
   <view class="detail">
-    <view class="title">
-      {{ title }}
-    </view>
+    <view class="title"> {{title}} </view>
     <view class="article__desc">
       <view class="time">{{time}} 转载:{{rep}}条</view>
     </view>
     <view class="article__content wxParse">
-      <!--<template is="wxParse" data="{{wxParseData}}"/>-->
-      <view class="text" >{{text}}</view>
+      <template is="wxParse" data="{{wxParseData:content.nodes}}" />
     </view>
   </view>
 </view>

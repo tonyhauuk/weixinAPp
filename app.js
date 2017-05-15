@@ -1,6 +1,5 @@
 //app.js
 
-
 App({
   onLaunch: function () {
     //调用API从本地缓存中获取数据
@@ -29,10 +28,11 @@ App({
             success: function (res) {
               that.globalData.userInfo = res.userInfo
               typeof cb == "function" && cb(that.globalData.userInfo)
-              //console.log(res.iv)
+              
               try {
                 var ssid = wx.getStorageSync('ssid')
                 var pid = wx.getStorageSync('pid')
+                //console.log(ssid+'  '+pid)
                 if (ssid && pid) {
                   // Do something with return value
                   wx.redirectTo({

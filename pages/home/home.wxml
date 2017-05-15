@@ -37,13 +37,13 @@
 <!--<swiper-item>-->
 <view class="container">
   <view class="news-item-container">
-    <navigator url="../details/details?id={{item.id}}" wx:for="{{arrArt}}" wx:for-index="id">
+    <navigator url="../details/details?id={{item.id}}" wx:key="id" wx:for="{{arrArt}}" wx:for-index="id">
       <view class="news-item">
         <view class="news-item-left">
           <text class="news-item-title">{{item.title}}</text>
           <view style="margin-left: 1px">
             <text class="news-item-time">{{item.time}}</text>
-            <text class="news-item-time" style="margin-left: 14px;">转载:{{item.rep}}条</text>
+            <text class="news-item-time" style="margin-left: 18px;">转载:{{item.rep}}条</text>
           </view>
           <text class="news-item-src">{{item.src}}</text>
         </view>
