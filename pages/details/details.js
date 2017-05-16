@@ -1,6 +1,6 @@
 // load xml 类
 var parser = require('../../utils/parser.js');
-var WxParse = require('../../utils/wxParse/wxParse/wxParse.js');
+const WxParse = require('../../utils/wxParse/wxParse/wxParse.js');
 
 Page({
   data: {
@@ -38,7 +38,7 @@ Page({
           // header: {}, // 设置请求的 header
           success: function (res) {
             // success
-            var id, title, link, rep, time, text, mark
+            var id, title, link, rep, time, text, mark, origin
 
             let xmldoc = parser.loadXML(res.data)
             
@@ -56,11 +56,9 @@ Page({
                   time = article[k].getElementsByTagName('pubtime')[0].firstChild.nodeValue
                   text = article[k].getElementsByTagName('text')[0].firstChild.nodeValue
                   mark = article[k].getElementsByTagName('mark')[0].firstChild.nodeValue
-
-                  /*text = text.replace(/<img/g, "<image")
-                  text = text.replace(/\/>/g, '></image>')*/
-                  // text = '<div>' + text + '</div>'
-                                
+                  origin = article[k].getElementsByTagName('origsrc')[0].firstChild.nodeValue
+                  origin = ''
+                
                   if (title.length > 40) 
                     title = title.substring(0, 40) + '...'
                 }
@@ -75,7 +73,8 @@ Page({
               rep: rep,
               time: time,
               text: text,
-              mark: mark
+              mark: mark,
+              origin: origin,
             })
           }
         })

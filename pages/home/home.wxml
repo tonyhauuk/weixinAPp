@@ -35,7 +35,7 @@
     </view>-->
 
 <!--<swiper-item>-->
-<view class="container">
+<view class="list-container">
   <view class="news-item-container">
     <navigator url="../details/details?id={{item.id}}" wx:key="id" wx:for="{{arrArt}}" wx:for-index="id">
       <view class="news-item">
@@ -54,10 +54,3 @@
     </navigator>
   </view>
 </view>
-
-<!--</swiper-item>
-  </block>-->
-
-<!--</swiper>-->
-
-<!--    wangxiao@estarinfo.net  800915     -->

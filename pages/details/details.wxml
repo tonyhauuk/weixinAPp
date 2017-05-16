@@ -5,6 +5,7 @@
     <view class="title"> {{title}} </view>
     <view class="article__desc">
       <view class="time">{{time}} 转载:{{rep}}条</view>
+      <view class="time">{{origin}}</view>
     </view>
     <view class="article__content wxParse">
       <template is="wxParse" data="{{wxParseData:content.nodes}}" />

@@ -256,7 +256,7 @@ function info(id, arr, ssid, that) {
               time = article[k].getElementsByTagName('pubtime')[0].firstChild.nodeValue
               img = article[k].getElementsByTagName('image_link')[0].firstChild.nodeValue
               src = article[k].getElementsByTagName('websrc')[0].firstChild.nodeValue
-
+              
               if (title.length > 15)
                 title = title.substring(0, 15) + '... '
 

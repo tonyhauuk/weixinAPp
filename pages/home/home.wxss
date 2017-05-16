@@ -47,6 +47,10 @@
   padding-right: 8px;
 }
 
+.list-container {
+    font-family: "Microsoft YaHei";
+}
+
 .news-item {
   display: flex;
   flex-direction: row;
