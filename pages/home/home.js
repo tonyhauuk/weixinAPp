@@ -40,15 +40,16 @@ Page({
           ssid: res.data
         })
 
+        // get favorite
         wx.request({
           url: 'https://open.estar360.com/user/favorite.php?',
           data: {
             ssid: res.data
           },
-          method: 'GET', // OPTIONS, GET, HEAD, POST, PUT, DELETE, TRACE, CONNECT
+          method: 'GET',
           header: {
             'content-type': 'application/json'
-          }, // 设置请求的 header
+          },
           success: function (res) {
             // success
             let xmldoc = parser.loadXML(res.data)
@@ -69,11 +70,17 @@ Page({
                   let pid = portal[k].getElementsByTagName("pid")[0].firstChild.nodeValue
                   let name = portal[k].getElementsByTagName("name")[0].firstChild.nodeValue
                   let cid = portal[k].getElementsByTagName("cid")[0].firstChild.nodeValue
+
                   try {
-                    wx.setStorageSync('pid', 10496)
+                    wx.setStorageSync('pid', pid)
                   } catch (e) {
                     console.log(e)
                   }
+
+                  wx.setStorage({
+                    key: 'pid',
+                    data: pid,
+                  })
 
                   that.setData({
                     p: pid,
@@ -87,63 +94,76 @@ Page({
           }
         })
 
-        // get column info
-        wx.request({
-          url: 'https://open.estar360.com/portal/structure.php?',
-          data: {
-            ssid: res.data,
-            pid: 10496,
-            layer: 2
-          },
-          method: 'GET', // OPTIONS, GET, HEAD, POST, PUT, DELETE, TRACE, CONNECT
-          header: { 'content-type': 'application/json' }, // 设置请求的 header
-          success: function (res) {
-            // success
-            var id, layer, name, homepage, push
-            var arr = []
-            var arrID = []
-            var jsonStr
+        wx.getStorage({
+          key: 'pid',
+          success: function (resPID) {
+            // get column info
+            wx.request({
+              url: 'https://open.estar360.com/portal/structure.php?',
+              data: {
+                ssid: res.data,
+                pid: resPID.data,
+                layer: 2
+              },
+              method: 'GET',
+              header: { 'content-type': 'application/json' },
+              success: function (res) {
+                // success
+                var id, layer, name, homepage, push
+                var arr = []
+                var arrID = []
+                var jsonStr
 
-            var xmldoc = parser.loadXML(res.data)
-            var elements = xmldoc.getElementsByTagName("structure")
+                var xmldoc = parser.loadXML(res.data)
+                var elements = xmldoc.getElementsByTagName("structure")
 
-            for (let i = 0; i < elements.length; i++) {
-              var errno = elements[i].getElementsByTagName("errno")[0].firstChild.nodeValue
-              var column = elements[i].getElementsByTagName("column")
+                for (let i = 0; i < elements.length; i++) {
+                  var errno = elements[i].getElementsByTagName("errno")[0].firstChild.nodeValue
+                  var column = elements[i].getElementsByTagName("column")
 
-              if (errno == 0) {
-                for (let x = 0; x < column.length; x++) {
-                  var columns = column[x].getElementsByTagName("columns")
+                  if (errno == 0) {
+                    for (let x = 0; x < column.length; x++) {
+                      var columns = column[x].getElementsByTagName("columns")
+                      var homeID = column[x].getElementsByTagName("id")[0].firstChild.nodeValue
 
-                  for (let j = 0; j < columns.length; j++) {
-                    var column = columns[j].getElementsByTagName("column")
+                      for (let j = 0; j < columns.length; j++) {
+                        var column = columns[j].getElementsByTagName("column")
 
-                    for (let k = 0; k < column.length; k++) {
-                      id = column[k].getElementsByTagName("id")[0].firstChild.nodeValue
-                      layer = column[k].getElementsByTagName("layer")[0].firstChild.nodeValue
-                      name = column[k].getElementsByTagName("name")[0].firstChild.nodeValue
-                      homepage = column[k].getElementsByTagName("homepage")[0].firstChild.nodeValue
-                      push = column[k].getElementsByTagName("push")[0].firstChild.nodeValue
+                        for (let k = 0; k < column.length; k++) {
+                          // 替换首页homepage ID号
+                          if (k == 0)
+                            id = homeID
+                          else
+                            id = column[k].getElementsByTagName("id")[0].firstChild.nodeValue
 
-                      if (name.length > 4)
-                        name = name.substring(0, 4) + '...'
+                          layer = column[k].getElementsByTagName("layer")[0].firstChild.nodeValue
+                          name = column[k].getElementsByTagName("name")[0].firstChild.nodeValue
+                          homepage = column[k].getElementsByTagName("homepage")[0].firstChild.nodeValue
+                          push = column[k].getElementsByTagName("push")[0].firstChild.nodeValue
 
-                      jsonStr = { id: id, name: name }
-                      arr.push(jsonStr)
-                      arrID.push(id)
+                          if (name.length > 4)
+                            name = name.substring(0, 4) + '...'
 
+                          jsonStr = { id: id, name: name }
+                          arr.push(jsonStr)
+                          arrID.push(id)
 
+                          //info(0, arrID, res.ssid, that)
+                        }
+                      }
                     }
                   }
                 }
+                that.setData({
+                  arrayCol: arr,
+                  arrID: arrID
+                })
               }
-            }
-            that.setData({
-              arrayCol: arr,
-              arrID: arrID
             })
-          }
+          },
         })
+
+
       }
     })
   },
@@ -164,16 +184,17 @@ Page({
   swichNav: function (e) {
     var that = this
     var id = e.target.dataset.current
+    console.log('swich '+id)
     if (id == '' || id == null)
       id = 0
 
     info(id, this.data.arrID, this.data.ssid, that)
 
-    if (this.data.currentTab === e.target.dataset.current)
+    if (this.data.currentTab === id)
       return false
     else
       that.setData({
-        currentTab: e.target.dataset.current
+        currentTab: id
       })
   },
 
@@ -190,26 +211,26 @@ Page({
     });
   },
 
-  tapSubMenu: function (e) {        
+  tapSubMenu: function (e) {
     // 隐藏所有一级菜单
     this.setData({
       subMenuDisplay: initSubMenuDisplay()
-    });        
+    });
     // 处理二级菜单，首先获取当前显示的二级菜单标识
     var indexArray = e.currentTarget.dataset.index.split('-');        // 初始化状态
     // var newSubMenuHighLight = initSubMenuHighLight;
-    for (var i = 0; i < initSubMenuHighLight.length; i++) {            
+    for (var i = 0; i < initSubMenuHighLight.length; i++) {
       // 如果点中的是一级菜单，则先清空状态，即非高亮模式，然后再高亮点中的二级菜单；如果不是当前菜单，而不理会。经过这样处理就能保留其他菜单的高亮状态
       if (indexArray[0] == i) {
-        for (var j = 0; j < initSubMenuHighLight[i].length; j++) {                    
+        for (var j = 0; j < initSubMenuHighLight[i].length; j++) {
           // 实现清空
           initSubMenuHighLight[i][j] = '';
-        }                
+        }
         // 将当前菜单的二级菜单设置回去
       }
-    }        
+    }
     // 与一级菜单不同，这里不需要判断当前状态，只需要点击就给class赋予highlight即可
-    initSubMenuHighLight[indexArray[0]][indexArray[1]] = 'highlight';        
+    initSubMenuHighLight[indexArray[0]][indexArray[1]] = 'highlight';
     // 设置为新的数组
     this.setData({
       subMenuHighLight: initSubMenuHighLight
@@ -232,7 +253,6 @@ function info(id, arr, ssid, that) {
     // header: {'content-type': 'application/json'}, // 设置请求的 header
     success: function (res) {
       // success
-
       var id, title, rep, time, img, src
       var art = []
       var arrAID = []
@@ -256,7 +276,7 @@ function info(id, arr, ssid, that) {
               time = article[k].getElementsByTagName('pubtime')[0].firstChild.nodeValue
               img = article[k].getElementsByTagName('image_link')[0].firstChild.nodeValue
               src = article[k].getElementsByTagName('websrc')[0].firstChild.nodeValue
-              
+
               if (title.length > 15)
                 title = title.substring(0, 15) + '... '
 
@@ -266,7 +286,6 @@ function info(id, arr, ssid, that) {
               jsonStr = { id: id, title: title, rep: rep, time: time, img: img, src: src }
               art.push(jsonStr)
               arrAID.push(id)
-
             }
           }
         }
@@ -278,6 +297,7 @@ function info(id, arr, ssid, that) {
     }
   })
 }
+
 function initSubMenuDisplay() {
   return ['hidden', 'hidden', 'hidden'];
 }

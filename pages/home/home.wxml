@@ -1,3 +1,23 @@
+<!--<view class="swiper-tab">
+  <view class="swiper-tab-list {{currentTab==0 ? 'on' : ''}}" data-current="0" bindtap="swichNav">哈哈</view>
+  <view class="swiper-tab-list {{currentTab==1 ? 'on' : ''}}" data-current="1" bindtap="swichNav">呵呵</view>
+  <view class="swiper-tab-list {{currentTab==2 ? 'on' : ''}}" data-current="2" bindtap="swichNav">嘿嘿</view>
+</view>
+
+<swiper current="{{currentTab}}" class="swiper-box" duration="300" style="height:{{winHeight - 31}}px" bindchange="bindChange">
+  
+  <swiper-item>
+    <view>我是哈哈</view>
+  </swiper-item>
+  
+  <swiper-item>
+    <view>我是呵呵</view>
+  </swiper-item>
+
+  <swiper-item>
+    <view>我是嘿嘿</view>
+  </swiper-item>
+</swiper>-->
 
 <!--index.wxml-->
 <view class="swiper-tab">
@@ -7,8 +27,9 @@
     </view>
   </block>
   <dl class="menu">
-  <view>
-    <dt data-index="0" bindtap="tapMainMenu">...</dt></view>
+    <view>
+      <dt data-index="0" bindtap="tapMainMenu">...</dt>
+    </view>
     <dd class="{{subMenuDisplay[0]}}">
       <ul>
         <ul>
@@ -21,36 +42,26 @@
   </dl>
 </view>
 
-<!--<swiper current="{{currentTab}}" class="swiper-box" style="height:{{winHeight - 31}}px" bindchange="bindChange">-->
-
-<!--<block wx:for="{{arrArt}}" wx:key="id" wx:for-item="item">-->
-
-<!--<view class="list">
-      <view class="title">
-        {{ item.title }}  转载:{{item.rep}}条
-      </view>
-      <view class="time">
-        {{item.time}}
-      </view>
-    </view>-->
-
-<!--<swiper-item>-->
-<view class="list-container">
-  <view class="news-item-container">
-    <navigator url="../details/details?id={{item.id}}" wx:key="id" wx:for="{{arrArt}}" wx:for-index="id">
-      <view class="news-item">
-        <view class="news-item-left">
-          <text class="news-item-title">{{item.title}}</text>
-          <view style="margin-left: 1px">
-            <text class="news-item-time">{{item.time}}</text>
-            <text class="news-item-time" style="margin-left: 18px;">转载:{{item.rep}}条</text>
+<swiper current="{{currentTab}}" class="swiper-box" duration="300" style="height:{{winHeight - 31}}px" bindchange="bindChange">
+  <swiper-item>
+    <view class="list-container">
+      <view class="news-item-container">
+        <navigator url="../details/details?id={{item.id}}" wx:key="id" wx:for="{{arrArt}}" wx:for-index="id">
+          <view class="news-item">
+            <view class="news-item-left">
+              <text class="news-item-title">{{item.title}}</text>
+              <view style="margin-left: 1px">
+                <text class="news-item-time">{{item.time}}</text>
+                <text class="news-item-time" style="margin-left: 18px;">转载:{{item.rep}}条</text>
+              </view>
+              <text class="news-item-src">{{item.src}}</text>
+            </view>
+            <view class="news-item-right">
+              <image src="{{item.img}}" class="news-image" />
+            </view>
           </view>
-          <text class="news-item-src">{{item.src}}</text>
-        </view>
-        <view class="news-item-right">
-          <image src="{{item.img}}" class="news-image" />
-        </view>
+        </navigator>
       </view>
-    </navigator>
-  </view>
-</view>
+    </view>
+  </swiper-item>
+</swiper>

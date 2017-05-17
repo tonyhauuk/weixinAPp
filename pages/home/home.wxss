@@ -49,6 +49,7 @@
 
 .list-container {
     font-family: "Microsoft YaHei";
+    
 }
 
 .news-item {
