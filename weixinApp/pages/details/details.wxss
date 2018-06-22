@@ -1,0 +1,63 @@
+@import "../../utils/wxParse/wxParse/wxParse.wxss";
+
+.title {
+    font-weight: bold;
+    font-size: 20px;
+    margin-left: 10px;
+    margin-top: 2px;
+}
+
+.time {
+    font-size: 15px;
+    color: #c0c0c0;
+    margin-left: 16px;
+}
+
+.page__detail {
+    display: block;
+    margin: 0 auto;
+    background-color: #fff;
+    margin-top: 0.4rem;
+}
+
+.article__content {
+    font-size: 36rpx;
+    color: #333;
+    line-height: 50rpx;
+    word-break: break-all;
+    text-indent: 2em;
+    margin-top: 1rem;
+    margin-left: 0.5rem;
+    margin-right: 0.5rem;
+}
+
+.article__desc {
+    padding-bottom: 30rpx;
+    border-bottom: 1rpx solid #ccc;
+    margin: 30rpx 0;
+}
+
+button {
+    font-size: 15px;
+    margin-top: 50px;
+    margin-left: 34%;
+    margin-right: 34%;
+    margin-bottom: 30px;
+}
+
+.pron {
+    color: #c0c0c0;
+    font-size: 12px;
+    line-height: 40rpx;
+    word-break: break-all;
+    text-indent: 2em;
+    margin-top: 1rem;
+    margin-left: 0.5rem;
+    margin-right: 0.5rem;
+}
+
+.link {
+    font-size: 12pt;
+    margin-left: 1rem;
+    margin-right: 1rem;
+}

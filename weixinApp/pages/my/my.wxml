@@ -1,0 +1,20 @@
+<!-- my.wxml -->
+<view>
+    <view class="userinfo">
+        <image class="userinfo-avatar" src="{{userInfo.avatarUrl}}" background-size="cover"></image>
+        <text class="userinfo-nickname">{{userInfo.nickName}}</text>
+    </view>
+    <view class="inputStr">
+        <view class="userName">
+            <text>帐号</text>
+            <input bindchange="userBind" placeholder="username" auto-focus/>
+        </view>
+        <view class="passwd">
+            <text>密码 </text>
+            <input bindchange="pwdBind" placeholder="password" password="true" />
+        </view>
+    </view>
+</view>
+<view class="btn">
+    <button type="primary" size="default" bindtap="submit">登    录</button>
+</view>

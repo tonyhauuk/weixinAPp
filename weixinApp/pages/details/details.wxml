@@ -1,0 +1,16 @@
+<import src="../../utils/wxParse/wxParse/wxParse.wxml" />
+
+<view class="page__detail">
+    <view class="detail">
+        <view class="title">{{title}}</view>
+        <view class="article__desc">
+            <view class="time">{{merge}}</view>
+        </view>
+        <view class="article__content wxParse">
+            <template is="wxParse" data="{{wxParseData:content.nodes}}" />
+        </view>
+    </view>
+    <button type="primary" size="default" bindtap="submit">{{status}}</button>
+    <view class="link">{{link}}</view>
+    <view class="pron">{{pron}}</view>
+</view>

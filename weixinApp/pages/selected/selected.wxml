@@ -1,0 +1,14 @@
+<!--select.wxml-->
+<block wx:key="id" wx:for="{{arr}}" wx:for-index="id" wx:for-item="item">
+    <view>
+        <view class="list-container">
+            <view class="news-item-container">
+                <navigator url="../home/home?id={{item.pid}}&name={{item.name}}">
+                    <view class="news-item">
+                        <text class="news-item-title">{{item.name}}</text>
+                    </view>
+                </navigator>
+            </view>
+        </view>
+    </view>
+</block>
